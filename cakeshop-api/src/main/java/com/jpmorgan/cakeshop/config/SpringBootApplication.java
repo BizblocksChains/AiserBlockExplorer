@@ -114,6 +114,7 @@ public class SpringBootApplication {
     public EmbeddedServletContainerFactory embeddedServletContainerFactory() {
         JettyEmbeddedServletContainerFactory jetty = new JettyEmbeddedServletContainerFactory();
         jetty.setContextPath("/cakeshop");
+        jetty.setPort(8081);
         return jetty;
     }
 
