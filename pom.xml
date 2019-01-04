@@ -10,15 +10,15 @@
   </parent>
 
   <groupId>com.jpmorgan</groupId>
-  <artifactId>cakeshop-parent</artifactId>
+  <artifactId>aiserblockexplorer-parent</artifactId>
   <version>0.10.0</version>
   <packaging>pom</packaging>
 
-  <name>cakeshop</name>
+  <name>AiserBlockExplorer</name>
 
   <scm>
-    <url>https://github.com/jpmorganchase/cakeshop</url>
-    <connection>scm:git:https://github.com/jpmorganchase/cakeshop.git</connection>
+    <url>https://github.com/BizblocksChains/AiserBlockExplorer</url>
+    <connection>scm:git:https://github.com/BizblocksChains/AiserBlockExplorer.git</connection>
   </scm>
 
   <properties>
@@ -47,13 +47,9 @@
   </properties>
 
   <modules>
-    <module>cakeshop-client-js</module>
-    <module>cakeshop-abi</module>
-    <module>cakeshop-api</module>
-    <module>cakeshop-client-java</module>
-    <module>cakeshop-client-java-codegen</module>
-    <module>cakeshop-client-java-sample</module>
-    <module>cakeshop-node-manager</module>
+    <module>aiserblockexplorer-client-js</module>
+    <module>aiserblockexplorer-abi</module>
+    <module>aiserblockexplorer-api</module>
   </modules>
 
   <build>
@@ -66,7 +62,7 @@
         <artifactId>maven-scm-plugin</artifactId>
         <version>1.9.5</version>
         <configuration>
-          <tag>cakeshop-${project.version}</tag>
+          <tag>aiserblockexplorer-${project.version}</tag>
         </configuration>
       </plugin>
       <plugin>
