@@ -1,19 +1,18 @@
 package com.jpmorgan.cakeshop.service.impl;
 
-import static com.jpmorgan.cakeshop.util.AbiUtils.*;
-
 import com.jpmorgan.cakeshop.error.APIException;
 import com.jpmorgan.cakeshop.model.Block;
 import com.jpmorgan.cakeshop.model.RequestModel;
 import com.jpmorgan.cakeshop.service.BlockService;
 import com.jpmorgan.cakeshop.service.GethHttpService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import static com.jpmorgan.cakeshop.util.AbiUtils.toBigInt;
 
 @Service
 public class BlockServiceImpl implements BlockService {
@@ -32,7 +31,7 @@ public class BlockServiceImpl implements BlockService {
             input = id;
         } else if (number != null && number >= 0) {
             method = "eth_getBlockByNumber";
-            input = number;
+            input = "0x"+Long.toHexString(number);
         } else if (tag != null && !tag.isEmpty()) {
             method = "eth_getBlockByNumber";
             input = tag;
@@ -85,7 +84,7 @@ public class BlockServiceImpl implements BlockService {
     public List<Block> get(long start, long end) throws APIException {
         List<RequestModel> reqs = new ArrayList<>();
         for (long i = start; i <= end; i++) {
-            reqs.add(new RequestModel("eth_getBlockByNumber", new Object[]{i, false}, 42L));
+            reqs.add(new RequestModel("eth_getBlockByNumber", new Object[]{"0x"+Long.toHexString(i), false}, 42L));
         }
         return batchGet(reqs);
     }
@@ -94,7 +93,7 @@ public class BlockServiceImpl implements BlockService {
     public List<Block> get(List<Long> numbers) throws APIException {
         List<RequestModel> reqs = new ArrayList<>();
         for (Long num : numbers) {
-            reqs.add(new RequestModel("eth_getBlockByNumber", new Object[]{num, false}, 42L));
+            reqs.add(new RequestModel("eth_getBlockByNumber", new Object[]{"0x"+Long.toHexString(num), false}, 42L));
         }
         return batchGet(reqs);
     }

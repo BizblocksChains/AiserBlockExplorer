@@ -1,9 +1,5 @@
 package com.jpmorgan.cakeshop.service.impl;
 
-import static com.jpmorgan.cakeshop.util.ProcessUtils.*;
-import static org.springframework.http.HttpMethod.*;
-import static org.springframework.http.MediaType.*;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableList;
@@ -25,16 +21,6 @@ import com.jpmorgan.cakeshop.service.task.LoadPeersTask;
 import com.jpmorgan.cakeshop.util.FileUtils;
 import com.jpmorgan.cakeshop.util.ProcessUtils;
 import com.jpmorgan.cakeshop.util.StreamLogAdapter;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
-import javax.annotation.PreDestroy;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
@@ -50,6 +36,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
+
+import javax.annotation.PreDestroy;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
+
+import static com.jpmorgan.cakeshop.util.ProcessUtils.*;
+import static org.springframework.http.HttpMethod.POST;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
 
 /**
  *
@@ -118,6 +117,8 @@ public class GethHttpServiceImpl implements GethHttpService {
 
             HttpEntity<String> httpEntity = new HttpEntity<>(json, jsonContentHeaders);
             ResponseEntity<String> response = restTemplate.exchange(gethConfig.getRpcUrl(), POST, httpEntity, String.class);
+
+          System.out.println(gethConfig.getRpcUrl() + " " + json);
 
             String res = response.getBody();
 

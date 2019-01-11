@@ -8,6 +8,11 @@ import com.jpmorgan.cakeshop.service.GethHttpService;
 import com.jpmorgan.cakeshop.service.GethRpcConstants;
 import com.jpmorgan.cakeshop.service.WalletService;
 import com.jpmorgan.cakeshop.util.AbiUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -15,14 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 /**
- *
  * @author Samer Falah
  */
 @Service
@@ -53,7 +51,7 @@ public class WalletServiceImpl implements WalletService, GethRpcConstants {
                 accounts = new ArrayList<>();
                 for (String address : accountList) {
                     Map<String, Object> accountData = gethService.executeGethCall(
-                            PERSONAL_GET_ACCOUNT_BALANCE, new Object[]{address, "latest"});
+                        PERSONAL_GET_ACCOUNT_BALANCE, new Object[]{address, "latest"});
                     String strBal = (String) accountData.get("_result");
                     BigInteger bal = AbiUtils.hexToBigInteger(strBal);
                     account = new Account();
@@ -113,7 +111,7 @@ public class WalletServiceImpl implements WalletService, GethRpcConstants {
     public Boolean fundAccount(WalletPostJsonRequest request) throws APIException {
         try {
             String accountFrom = StringUtils.isNotBlank(request.getFromAccount()) ? request.getFromAccount()
-                    : list().get(0).getAddress();
+                : list().get(0).getAddress();
             if (accountFrom.equals(request.getAccount())) {
                 accountFrom = list().get(1).getAddress();
             }
@@ -121,7 +119,7 @@ public class WalletServiceImpl implements WalletService, GethRpcConstants {
             fundArgs.put("from", accountFrom);
             fundArgs.put("to", request.getAccount());
             fundArgs.put("value", request.getNewBalance());
-            Map<String, Object> result = gethService.executeGethCall("eth_sendTransaction", new Object[]{fundArgs});
+            Map<String, Object> result = gethService.executeGethCall("eth_sendTransaction", new Object[]{"0x" + fundArgs});
             String response = result.get("_result").toString();
             if (StringUtils.isNotBlank(response)) {
                 return Boolean.TRUE;
@@ -136,7 +134,7 @@ public class WalletServiceImpl implements WalletService, GethRpcConstants {
     @Override
     public boolean isUnlocked(String address) throws APIException {
         try {
-            Map<String, Object> result = gethService.executeGethCall("eth_sign", new Object[]{address, DUMMY_PAYLOAD_HASH});
+            Map<String, Object> result = gethService.executeGethCall("eth_sign", new Object[]{address, "0x" + DUMMY_PAYLOAD_HASH});
             if (StringUtils.isNotBlank((String) result.get("_result"))) {
                 return true;
             }

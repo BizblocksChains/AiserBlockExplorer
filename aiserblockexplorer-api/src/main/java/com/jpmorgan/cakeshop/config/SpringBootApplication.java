@@ -113,7 +113,7 @@ public class SpringBootApplication {
     @Profile("spring-boot")
     public EmbeddedServletContainerFactory embeddedServletContainerFactory() {
         JettyEmbeddedServletContainerFactory jetty = new JettyEmbeddedServletContainerFactory();
-        jetty.setContextPath("block-explorer");
+        jetty.setContextPath("/cakeshop");
         jetty.setPort(8080);
         return jetty;
     }
