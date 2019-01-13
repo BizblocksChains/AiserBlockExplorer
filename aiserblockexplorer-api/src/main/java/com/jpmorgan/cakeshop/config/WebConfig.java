@@ -12,14 +12,10 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.task.AsyncTaskExecutor;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
-import org.springframework.web.servlet.config.annotation.AsyncSupportConfigurer;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.*;
 
 import okhttp3.OkHttpClient;
 import org.springframework.web.servlet.ViewResolver;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
@@ -86,11 +82,6 @@ public class WebConfig extends WebMvcConfigurerAdapter {
           .addResourceLocations("classpath:/META-INF/resources/webjars/");
 
         registry.addResourceHandler("/**").addResourceLocations("classpath:/static/");
-//        registry.addResourceHandler("/css/**").addResourceLocations("classpath:/static/css/");
-//        registry.addResourceHandler("/img/**").addResourceLocations("classpath:/static/img/");
-//        registry.addResourceHandler("/js/**").addResourceLocations("classpath:/static/js/");
-//        registry.addResourceHandler("/fonts/**").addResourceLocations("classpath:/static/fonts/");
-
     }
 
     @Bean
@@ -143,4 +134,10 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         exec.afterPropertiesSet();
         return exec;
     }
+
+
+  @Override
+  public void addViewControllers(ViewControllerRegistry registry) {
+    registry.addViewController("/").setViewName("forward:/index.html");
+  }
 }
