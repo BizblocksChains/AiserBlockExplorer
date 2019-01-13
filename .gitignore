@@ -35,9 +35,9 @@ node_modules
 bower_components/
 dist/
 node/
-cakeshop-api/src/main/webapp/js/index-gen.js*
-cakeshop-api/src/main/webapp/js/*hot-update*
-cakeshop-api/src/main/webapp/js/vendor/cakeshop.js
+aiserblockexplorer-api/src/main/webapp/js/index-gen.js*
+aiserblockexplorer-api/src/main/webapp/js/*hot-update*
+aiserblockexplorer-api/src/main/webapp/js/vendor/cakeshop.js
 
 # local testing
 FooTest.java
