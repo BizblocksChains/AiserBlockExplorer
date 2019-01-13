@@ -38,7 +38,7 @@ gulp.task("compile", ["compile-libs", "compile-combined"]);
 gulp.task("install", ["compile"], function() {
   return gulp.src(dest+"cakeshop.js")
     // .pipe(concatenate("cakeshop.js"))
-    .pipe(gulp.dest("../../../../cakeshop-api/src/main/resources/static/js/vendor/"));
+    .pipe(gulp.dest("../../../../aiserblockexplorer-api/src/main/resources/static/js/vendor/"));
 });
 
 gulp.task("watch", ["install"], function() {

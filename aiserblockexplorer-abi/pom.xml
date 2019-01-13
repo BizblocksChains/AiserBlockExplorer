@@ -12,7 +12,7 @@
   <artifactId>aiserblockexplorer-abi</artifactId>
   <packaging>jar</packaging>
 
-  <name>Cakeshop ABI Model</name>
+  <name>AiserBlockExplorer ABI Model</name>
 
   <properties>
   </properties>
